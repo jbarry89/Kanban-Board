@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import { User } from '../models/user.js';
+
+const saltRounds = 10;
 
 // GET /Users
 export const getAllUsers = async (_req: Request, res: Response) => {
@@ -34,7 +37,8 @@ export const getUserById = async (req: Request, res: Response) => {
 export const createUser = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
-    const newUser = await User.create({ username, password });
+    const hashedPassword = await bcrypt.hash(password, saltRounds);   // Enhance password security by hashing it.
+    const newUser = await User.create({ username, password: hashedPassword });
     res.status(201).json(newUser);
   } catch (error: any) {
     res.status(400).json({ message: error.message });
@@ -49,7 +53,7 @@ export const updateUser = async (req: Request, res: Response) => {
     const user = await User.findByPk(id);
     if (user) {
       user.username = username;
-      user.password = password;
+      user.password = await bcrypt.hash(password, saltRounds); // Enhance password security
       await user.save();
       res.json(user);
     } else {
