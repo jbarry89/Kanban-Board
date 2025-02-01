@@ -12,7 +12,7 @@ export const login = async (req: Request, res: Response) => {
   try {
     const user = await User.findOne({where: {username}});
     if(!user){
-      return res.status(401).json({message: 'Invalid user or password'});
+      return res.status(401).json({message: 'Invalid username or password'});
     }
 
     //Comparing the password with the stored hashed password
@@ -23,9 +23,10 @@ export const login = async (req: Request, res: Response) => {
 
     // Generate a JWT token
     const token = jwt.sign({userId: user.id, username: user.username}, SECRET_KEY, {expiresIn: '1h'});
-    res.json({token});
+    return res.json({success: true, token});
   } catch (error: any) {
-    res.status(500).json({message: error.message});
+    return res.status(500).json({message: 'Internal Server Error'});
+    
   }
 
 
