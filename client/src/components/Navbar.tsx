@@ -8,6 +8,8 @@ const Navbar = () => {
   const checkLogin = () => {
     if(auth.loggedIn()) {
       setLoginCheck(true);
+    }else {
+      setLoginCheck(false);
     }
   };
 
