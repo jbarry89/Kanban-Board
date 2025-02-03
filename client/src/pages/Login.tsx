@@ -21,7 +21,18 @@ const Login = () => {
     e.preventDefault();
     try {
       const data = await login(loginData);
-      Auth.login(data.token);
+
+      if(!data){
+        console.error("Login returned undefined");
+        return;
+      }
+      
+      if(data.success && data.token){
+        Auth.login(data.token);
+      } else {
+        console.error('Login failed:', data.message || "No token recieved");
+      }
+
     } catch (err) {
       console.error('Failed to login', err);
     }
