@@ -9,7 +9,7 @@ interface AuthRequest extends Request {
   user?: JwtPayload;
 }
 
-const SECRET_KEY = process.env.JWT_SECRET_KEY || 'your_secret_key';  // secret key
+const SECRET_KEY = process.env.JWT_SECRET_KEY || '';  // secret key
 
 export const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   const authHeader = req.headers['authorization'];
