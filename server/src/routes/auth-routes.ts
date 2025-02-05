@@ -3,12 +3,13 @@ import { User } from '../models/user.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-const SECRET_KEY = process.env.JWT_SECRET_KEY || 'your_secret_key';
+const SECRET_KEY = process.env.JWT_SECRET_KEY || '';
 
 export const login = async (req: Request, res: Response) => {
   // TODO: If the user exists and the password is correct, return a JWT token
   const {username, password} = req.body;
-
+  console.log("Received Login Data Request:", username, password);   // Testing Logs
+ 
   try {
     const user = await User.findOne({where: {username}});
     if(!user){
@@ -24,7 +25,8 @@ export const login = async (req: Request, res: Response) => {
     // Generate a JWT token
     const token = jwt.sign({userId: user.id, username: user.username}, SECRET_KEY, {expiresIn: '1h'});
     return res.json({success: true, token});
-  } catch (error: any) {
+  } catch (error) {
+    console.error("Login Error:", error);    // Testing Logs
     return res.status(500).json({message: 'Internal Server Error'});
     
   }
