@@ -16,7 +16,7 @@
   This application enhances an already existing Kanban board and uses JSON Web Token (JWT) for authentication to the server API.
 
   ## Installation
-  To successfully run this application, these are the following installation requirements: TypeScript, Node JS,`PostgreSQL`, `express`, `sequelize`, `jsonwebtoken`, `bcrypt`, `dotenv`, `react-router-dom`, and `npm` package. 
+  To successfully run this application, these are the following installation requirements: TypeScript, Node JS,`PostgreSQL`, `express`, `sequelize`, `jsonwebtoken`, `bcrypt`, `dotenv`, `react-router-dom`, and `npm` package. Additional tools you might need is `Insomnia` for API Testing.
 
   ## Usage 
   Here is an example screenshot and video of the Kanban-Board App:
